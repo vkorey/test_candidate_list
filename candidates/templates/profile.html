@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}{{ request.user}}{% endblock %}
+{% block content %}
+
+
+
+<div class="h2"> Кандидат:<br> {{ user.get_full_name }}</div>
+<div class="h3 text-muted"> {{ user.username}} </div>
+<br>
+<br>
+<br>
+<div class="h2"> Навыки:</div>
+{% for skill in skill_list %}
+<h4>{{ skill.tag }} : {{ skill }} <a href="/api/delete/{{skill.id}}">x</a></h4>
+
+{%endfor%}
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }} <input type="submit"></form>
+
+</div>
+</div>
+</main>
+{% endblock %}

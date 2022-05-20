@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Список кандидатов{% endblock %}
+{% block header %}Список кандидатов{% endblock %}
+{% block content %}
+
+{% for user in page %}
+<h3>
+  {{ user.get_full_name }}
+
+</h3>
+<p>{% for skill in user.skills.all %}
+  {{ skill.tag }} : {{ skill.name }}
+
+</p>
+{% endfor %}
+{% if not forloop.last %}
+<hr>{% endif %}
+{% endfor %}
+
+{% include "paginator.html" %}
+
+{% endblock %}

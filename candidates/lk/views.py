@@ -1,10 +1,9 @@
 from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse
 
-from .forms import NewSkillForm
-from .models import Skill, User
+from .forms import FormForm, NewSkillForm
+from .models import Skill, Tag, User
 
 
 def index(request):
@@ -27,7 +26,7 @@ def profile(request, username):
         return HttpResponse(request.POST)
     candidate = get_object_or_404(User, username=username)
     skill_list = Skill.objects.filter(candidates=candidate).prefetch_related('tag')
-    form = NewSkillForm()
+    form = FormForm()
     return render(
         request,
         'profile.html',

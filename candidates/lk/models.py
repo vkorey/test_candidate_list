@@ -9,6 +9,7 @@ class Tag(models.Model):
         'tag',
         max_length=200,
         null=True,
+        unique=True,
     )
 
     def __str__(self):
@@ -28,11 +29,13 @@ class Skill(models.Model):
         on_delete=models.CASCADE,
         related_name="skills",
         null=True,
+        
     )
     name = models.CharField(
         'название навыка',
         max_length=200,
         null=True,
+        unique=True,
     )
 
     def __str__(self):

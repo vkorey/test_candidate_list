@@ -1,25 +1,38 @@
 {% extends "base.html" %}
 {% block title %}{{ request.user}}{% endblock %}
 {% block content %}
-
-
-
-<div class="h2"> Кандидат:<br> {{ user.get_full_name }}</div>
-<div class="h3 text-muted"> {{ user.username}} </div>
-<br>
-<br>
-<br>
-<div class="h2"> Навыки:</div>
-{% for skill in skill_list %}
-<h4>{{ skill.tag }} : {{ skill }} <a href="/api/delete/{{skill.id}}">x</a></h4>
-
-{%endfor%}
-
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }} <input type="submit"></form>
-
+{% load user_filters %}
+<div class="row justify-content-center">
+  <div class="col-md-8 p-5">
+    <div class="card">
+      <div class="card-header">Кандидат:</div>
+      <div class="card-body">
+        <div class="h4">{{ user.get_full_name }}</div>
+        <div class="h5 text-muted"> {{ user.username}} </div>
+        <br>
+        Навыки:
+        {% for skill in skill_list %}
+        <p>{{ skill.tag }} : {{ skill }} <a href="/api/delete/{{skill.id}}">x</a></p>
+        {%endfor%}
+        <form method="post">
+          {% csrf_token %}
+          <div class="form-group row" aria-required={% if field.field.required %}"true"{% else %}"false"{% endif %}>
+            <label for="{{ field.id_for_label }}"
+              class="col-md-4 col-form-label text-md-right">{{ field.label }}{% if field.field.required %}<span
+                class="required">*</span>{% endif %}</label>
+            <div class="col-md-6">
+              {{ form.as_p }}
+            </div>
+          </div>
+          <div class="col-md-6 offset-md-4">
+            <button type="submit" class="btn btn-secondary btn-sm">
+              Добавить навык
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 </div>
-</main>
 {% endblock %}

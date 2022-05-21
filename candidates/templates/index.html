@@ -1,22 +1,26 @@
 {% extends "base.html" %}
 {% block title %}Список кандидатов{% endblock %}
-{% block header %}Список кандидатов{% endblock %}
+
 {% block content %}
-
-{% for user in page %}
-<h3>
-  {{ user.get_full_name }}
-
-</h3>
-<p>{% for skill in user.skills.all %}
-  {{ skill.tag }} : {{ skill.name }}
-
-</p>
-{% endfor %}
-{% if not forloop.last %}
-<hr>{% endif %}
-{% endfor %}
-
-{% include "paginator.html" %}
-
-{% endblock %}
+<div class="container">
+  <div class="h2"> Список кандидатов</div>
+  <br>
+  {% for user in page %}
+  <div class="card mb-3 mt-1 shadow-sm">
+    <div class="card-body">
+      <p class="card-text">
+        <strong class="d-block text-gray-dark">{{ user.get_full_name }}</strong>
+      </p>
+      {% for skill in user.skills.all %}
+      <div class="d-flex justify-content-between align-items-center">
+        {{ skill.tag }} : {{ skill.name }}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% if not forloop.last %}
+  <hr>{% endif %}
+  {% endfor %}
+  {% include "paginator.html" %}
+  {% endblock %}
+</div>

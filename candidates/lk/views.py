@@ -6,7 +6,7 @@ from .models import Skill, Tag, User
 
 
 def index(request):
-    users = User.objects.prefetch_related('skills__tag', 'skills')
+    users = User.objects.prefetch_related('skills__tag', 'skills').order_by('id')
     paginator = Paginator(users, 10)
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)

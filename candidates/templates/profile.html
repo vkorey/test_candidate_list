@@ -24,6 +24,7 @@
           {% endfor %}
         </ul>
         {% if request.user == candidate %}
+        Добавьте навыки в профиль:
         <form method="post">
           {% csrf_token %}
           <div class="form-group row" aria-required={% if field.field.required %}"true"{% else %}"false"{% endif %}>

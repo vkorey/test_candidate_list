@@ -13,8 +13,9 @@ DEBUG = False
 ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
-    "[::1]",
-    "testserver",
+    "[*]",
+    ".herokuapp.com",
+    "shielded-thicket-10935.herokuapp.com",
 ]
 
 LOGIN_URL = "/auth/login/"
@@ -64,6 +65,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'candidates.wsgi.application'
 
+CSRF_TRUSTED_ORIGINS = ["https://shielded-thicket-10935.herokuapp.com"]
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases

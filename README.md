@@ -39,3 +39,5 @@ cd candidates
 
 python manage.py runserver
 ```
+
+Ссылка на проект: https://shielded-thicket-10935.herokuapp.com

@@ -9,13 +9,21 @@
   <div class="card mb-3 mt-1 shadow-sm">
     <div class="card-body">
       <p class="card-text">
-        <strong class="d-block text-gray-dark">{{ user.get_full_name }}</strong>
+        <a class="p text-dark" href="{% url 'profile' user.username %}"><strong
+            class="d-block text-gray-dark">{{ user.get_full_name }}</strong></a>
       </p>
-      {% for skill in user.skills.all %}
-      <div class="d-flex justify-content-between align-items-center">
-        {{ skill.tag }} : {{ skill.name }}
-      </div>
-      {% endfor %}
+      {% regroup user.skills.all by tag as grouped_skills %}
+      <ul>
+        {% for group in grouped_skills %}
+        <li>{{ group.grouper }}
+          <ul>
+            {% for skill in group.list %}
+            <li>{{ skill.name }}</li>
+            {% endfor %}
+          </ul>
+        </li>
+        {% endfor %}
+      </ul>
     </div>
   </div>
   {% if not forloop.last %}

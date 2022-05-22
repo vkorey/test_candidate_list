@@ -7,13 +7,23 @@
     <div class="card">
       <div class="card-header">Кандидат:</div>
       <div class="card-body">
-        <div class="h4">{{ user.get_full_name }}</div>
-        <div class="h5 text-muted"> {{ user.username}} </div>
+        <div class="h4">{{ candidate.get_full_name }}</div>
+        <div class="h5 text-muted"> {{ candidate.username}} </div>
         <br>
         Навыки:
-        {% for skill in skill_list %}
-        <p>{{ skill.tag }} : {{ skill }} <a href="/api/delete/{{skill.id}}">x</a></p>
-        {%endfor%}
+        {% regroup skill_list by tag as grouped_skills %}
+        <ul>
+          {% for group in grouped_skills %}
+          <li>{{ group.grouper }}
+            <ul>
+              {% for skill in group.list %}
+              <li>{{ skill.name }} <a href="/api/delete/{{skill.id}}">x</a></li>
+              {% endfor %}
+            </ul>
+          </li>
+          {% endfor %}
+        </ul>
+        {% if request.user == candidate %}
         <form method="post">
           {% csrf_token %}
           <div class="form-group row" aria-required={% if field.field.required %}"true"{% else %}"false"{% endif %}>
@@ -30,6 +40,7 @@
             </button>
           </div>
         </form>
+        {% endif %}
       </div>
     </div>
   </div>

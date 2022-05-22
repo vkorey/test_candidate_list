@@ -20,7 +20,7 @@ class Tag(models.Model):
 
 
 class Skill(models.Model):
-    candidates = models.ManyToManyField(
+    candidate = models.ManyToManyField(
         User,
         related_name='skills',
     )
@@ -29,13 +29,11 @@ class Skill(models.Model):
         on_delete=models.CASCADE,
         related_name="skills",
         null=True,
-        
     )
     name = models.CharField(
         'название навыка',
         max_length=200,
         null=True,
-        unique=True,
     )
 
     def __str__(self):
@@ -43,3 +41,4 @@ class Skill(models.Model):
 
     class Meta:
         ordering = ('tag', 'name',)
+        unique_together = ('tag', 'name')
